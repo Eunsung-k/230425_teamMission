@@ -109,19 +109,37 @@ const TodoList = () => {
         >
           Add Todo
         </button>
+        
+      <div className="w-1/2 pr-4">
+        <h2 className="text-lg font-medium mb-2">Todo List</h2>
+        <ul>
+          {sortTodos(todos)
+            .filter((todo) => !todo.completed)
+            .map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onToggle={() => toggleTodo(todo.id)}
+              />
+            ))}
+        </ul>
       </div>
-      {/* 할 일 목록을 렌더링합니다. */}
-      <ul>
-        {sortTodos(todos).map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={() => toggleTodo(todo.id)}
-            onDelete={() => deleteTodo(todo.id)}
-          />
-        ))}
-      </ul>
+      <div className="w-1/2 pl-4">
+        <h2 className="text-lg font-medium mb-2">Completed Todos</h2>
+        <ul>
+          {sortTodos(todos)
+            .filter((todo) => todo.completed)
+            .map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onDelete={() => deleteTodo(todo.id)}
+              />
+            ))}
+        </ul>
+      </div>
     </div>
+  </div>
   );
 };
 
