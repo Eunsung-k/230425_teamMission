@@ -15,6 +15,7 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
       {/* 체크박스를 렌더링하고, 체크박스의 상태를 할 일의 완료 상태와 동기화합니다.
           체크박스의 상태가 변경되면 onToggle 함수를 호출하여 완료 상태를 업데이트합니다. */}
       <input type="checkbox" checked={todo.completed} onChange={onToggle} />
+      <button onClick="완료했습니다.">참가신청</button>
 
       {/* 할 일의 텍스트를 렌더링하고, 완료 상태에 따라 텍스트에 취소선을 적용합니다. */}
       <span
@@ -26,6 +27,7 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
 
       {/* 삭제 버튼을 렌더링하고, 클릭 시 onDelete 함수를 호출하여 해당 할 일을 삭제합니다. */}
       <button onClick={onDelete}>Delete</button>
+      
     </li>
   );
 };
