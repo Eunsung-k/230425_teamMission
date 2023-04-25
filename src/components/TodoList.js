@@ -13,8 +13,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
-
-
+  const [selectedTime, setSelectedTime] = useState(null);
   const [deletedTodos, setDeletedTodos] = useState([]);
 
 
@@ -29,9 +28,10 @@ const TodoList = () => {
     //   completed: 완료 여부,
     // }
     // ...todos => {id: 1, text: "할일1", completed: false}, {id: 2, text: "할일2", completed: false}}, ..
-    setTodos([...todos, { id: Date.now(), text: input, completed: false, date: selectedDate }]);
+    setTodos([...todos, { id: Date.now(), text: input, completed: false, date: selectedDate, time: selectedTime }]);
     setInput("");
     setSelectedDate(null);
+    setSelectedTime(null);
   };
   
   // 할일 추가했을 때 추가했다는 alert
@@ -72,7 +72,25 @@ const TodoList = () => {
   };
   // 할일 정렬
   const sortTodos = (todos) => {
-    return todos.sort((a,b) => new Date(a.date) - new Date(b.date));
+    return todos.sort((a, b) => {
+      const dateA = new Date(a.date + 'T' + a.time);
+      const dateB = new Date(b.date + 'T' + b.time);
+      
+      // 1. 마감일자를 우선순위로 정렬
+      if (dateA < dateB) return -1;
+      if (dateA > dateB) return 1;
+      
+      // 2. 같은 마감일자인 할 일이 여러개일 경우 마감 시간을 고려하여 정렬
+      if (a.time && b.time) {
+        const timeA = parseInt(a.time.replace(':', ''));
+        const timeB = parseInt(b.time.replace(':', ''));
+        if (timeA < timeB) return -1;
+        if (timeA > timeB) return 1;
+      }
+      
+      // 3. 마감일자와 마감시간이 모두 같으면 입력된 순서대로 정렬
+      return 0;
+    });
   };
 
 
@@ -98,12 +116,20 @@ const TodoList = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
+      {/* 할 일의 마감 일자를 입력받는 필드입니다. */}
       <input
         type="date"
         className={styles.itemInput}
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)} 
         />
+      {/* 할 일의 마감 시간을 입력받는 필드입니다. */}
+      <input
+        type="time"
+        className={styles.itemInput}
+        value={selectedTime}
+        onChange={(e) => setSelectedTime(e.target.value)}
+      />
       {/* 할 일을 추가하는 버튼입니다. */}
       <div class="grid">
         <button
