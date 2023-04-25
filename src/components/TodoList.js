@@ -109,7 +109,7 @@ const TodoList = () => {
         >
           Add Todo
         </button>
-        
+
       <div className="w-1/2 pr-4">
         <h2 className="text-lg font-medium mb-2">Todo List</h2>
         <ul>
@@ -125,7 +125,7 @@ const TodoList = () => {
         </ul>
       </div>
       <div className="w-1/2 pl-4">
-        <h2 className="text-lg font-medium mb-2">Completed Todos</h2>
+        <h2 className="text-lg font-medium mb-2">Completed Todo</h2>
         <ul>
           {sortTodos(todos)
             .filter((todo) => todo.completed)
