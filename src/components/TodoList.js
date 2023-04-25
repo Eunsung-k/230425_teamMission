@@ -62,7 +62,7 @@ const TodoList = () => {
   // 컴포넌트를 렌더링합니다.
   return (
     <div className={styles.container}>
-      <h1 className="text-xl mb-4 font-bold underline underline-offset-4 decoration-wavy">
+      <h1 className="text-xl mb-4 font-bold underline underline-offset-4 decoration-wavy text-blue-500">
         Todo List
       </h1>
       <div className={styles.inputContainer}></div>
