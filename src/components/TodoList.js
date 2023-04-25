@@ -14,6 +14,10 @@ const TodoList = () => {
   const [input, setInput] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
 
+
+  const [deletedTodos, setDeletedTodos] = useState([]);
+
+
   // addTodo 함수는 입력값을 이용하여 새로운 할 일을 목록에 추가하는 함수입니다.
   const addTodo = () => {
     // 입력값이 비어있는 경우 함수를 종료합니다.
@@ -36,6 +40,7 @@ const TodoList = () => {
   alert("added");
   }
 
+
   // toggleTodo 함수는 체크박스를 눌러 할 일의 완료 상태를 변경하는 함수입니다.
   const toggleTodo = (id) => {
     // 할 일 목록에서 해당 id를 가진 할 일의 완료 상태를 반전시킵니다.
@@ -50,10 +55,15 @@ const TodoList = () => {
     );
   };
 
+  
   // deleteTodo 함수는 할 일을 목록에서 삭제하는 함수입니다.
   const deleteTodo = (id) => {
     // 해당 id를 가진 할 일을 제외한 나머지 목록을 새로운 상태로 저장합니다.
     // setTodos(todos.filter((todo) => todo.id !== id));
+    // 해당 id를 가진 할 일을 찾아 삭제합니다.
+  const deletedTodo = todos.find((todo) => todo.id === id);
+  // 삭제한 할 일을 "Deleted Todo" 란에 보이도록 추가합니다.
+  setDeletedTodos([...deletedTodos, deletedTodo]);
     setTodos(
       todos.filter((todo) => {
         return todo.id !== id;
@@ -65,6 +75,8 @@ const TodoList = () => {
     return todos.sort((a,b) => new Date(a.date) - new Date(b.date));
   };
 
+
+  
   // 컴포넌트를 렌더링합니다.
   return (
     <div className={styles.container}>
@@ -72,7 +84,7 @@ const TodoList = () => {
         Todo List
       </h1>
       <div className={styles.inputContainer}></div>
-      {/* 할 일을 입력받는 텍스트 필드입니다. */}
+      {"할 일 입력" /* 할 일을 입력받는 텍스트 필드입니다. */}
       <input
         type="text"
         // className={styles.itemInput}
@@ -147,6 +159,20 @@ const TodoList = () => {
             ))}
         </ul>
       </div>
+      
+
+      {deletedTodos.length > 0 && (
+  <div className={styles.deletedList}>
+    <h2>Deleted Todos</h2>
+    <ul>
+      {deletedTodos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
+
     </div>
   </div>
   );

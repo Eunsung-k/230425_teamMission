@@ -13,6 +13,16 @@ input[type="text"].itemInput {
   margin-bottom: 10px;
 }
 
+
+.deletedList {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
 button.addButton {
   padding: 5px;
   background-color: #0070f3;
